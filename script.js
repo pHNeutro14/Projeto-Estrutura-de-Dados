@@ -19,3 +19,9 @@ function gerarCartas() {
         mesa.appendChild(carta);
     }
 }
+
+document.getElementById("tamanho").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        gerarCartas();
+    }
+})
