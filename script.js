@@ -26,13 +26,12 @@ function renderizarCartas() {
     const mesa = document.getElementById("mesa");
     mesa.innerHTML = "";
 
-    vetor.forEach(valor => {
+    for (let i = 0; i < vetor.length; i++) {
         const carta = document.createElement("div");
         carta.classList.add("carta");
-        carta.innerText = valor;
-
+        carta.innerText = vetor[i];
         mesa.appendChild(carta);
-    });
+    }
 }
 
 document.getElementById("tamanho").addEventListener("keydown", function(event) {
