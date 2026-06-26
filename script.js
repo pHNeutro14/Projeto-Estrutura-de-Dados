@@ -1,3 +1,10 @@
+import { bubblesort } from "./algoritmos/bubbleSort.js";
+
+let vetor = [];
+
+document.getElementById("btnGerar").addEventListener("click", gerarCartas);
+document.getElementById("btnOrdenar").addEventListener("click", ordenar);
+
 function gerarCartas() {
     const tamanho = Number(document.getElementById("tamanho").value);
 
@@ -6,18 +13,26 @@ function gerarCartas() {
         return;
     }
 
+    vetor = [];
+
+    for (let i = 0; i < tamanho; i++) {
+        vetor.push(Math.floor(Math.random() * 100));
+    }
+
+    renderizarCartas();
+}
+
+function renderizarCartas() {
     const mesa = document.getElementById("mesa");
     mesa.innerHTML = "";
 
-    for (let i = 0; i < tamanho; i++) {
+    vetor.forEach(valor => {
         const carta = document.createElement("div");
         carta.classList.add("carta");
-
-        // carta em branco (sem valor)
-        carta.innerText = "";
+        carta.innerText = valor;
 
         mesa.appendChild(carta);
-    }
+    });
 }
 
 document.getElementById("tamanho").addEventListener("keydown", function(event) {
@@ -25,3 +40,23 @@ document.getElementById("tamanho").addEventListener("keydown", function(event) {
         gerarCartas();
     }
 })
+
+
+function ordenar() {
+    const algoritmo = document.getElementById("algoritmo").value;
+
+    switch (algoritmo) {
+        case "bubble":
+
+            const resultado = bubblesort(vetor);
+
+            vetor = resultado.vetor;
+
+            renderizarCartas();
+
+            console.log(resultado.comparacoes);
+            console.log(resultado.trocas);
+
+            break;
+    }
+}
