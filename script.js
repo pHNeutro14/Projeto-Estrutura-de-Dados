@@ -1,5 +1,7 @@
 import { bubblesort } from "./algoritmos/bubbleSort.js";
 import { selectionsort } from "./algoritmos/selectionSort.js";
+import { insertionsort } from "./algoritmos/insertionSort.js";
+import { quicksort } from "./algoritmos/quickSort.js";
 
 let vetor = [];
 
@@ -39,13 +41,13 @@ document.getElementById("tamanho").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         gerarCartas();
     }
-})
-
+});
 
 function ordenar() {
     const algoritmo = document.getElementById("algoritmo").value;
 
     switch (algoritmo) {
+
         case "bubble": {
 
             const inicio = performance.now();
@@ -58,7 +60,6 @@ function ordenar() {
 
             renderizarCartas();
 
-
             document.getElementById("tempo").innerText =
                 `${(fim - inicio).toFixed(3)} ms`;
 
@@ -68,18 +69,18 @@ function ordenar() {
             document.getElementById("trocas").innerText =
                 resultado.trocas;
 
-            break};
+            break;
+        }
 
         case "selection": {
 
             const inicio = performance.now();
 
             const resultado = selectionsort(vetor);
-            
+
             vetor = resultado.vetor;
 
             const fim = performance.now();
-
 
             renderizarCartas();
 
@@ -92,6 +93,55 @@ function ordenar() {
             document.getElementById("trocas").innerText =
                 resultado.trocas;
 
-            break;}
+            break;
+        }
+
+        case "insertion": {
+
+            const inicio = performance.now();
+
+            const resultado = insertionsort(vetor);
+
+            vetor = resultado.vetor;
+
+            const fim = performance.now();
+
+            renderizarCartas();
+
+            document.getElementById("tempo").innerText =
+                `${(fim - inicio).toFixed(3)} ms`;
+
+            document.getElementById("comparacoes").innerText =
+                resultado.comparacoes;
+
+            document.getElementById("trocas").innerText =
+                resultado.trocas;
+
+            break;
+        }
+
+        case "quick": {
+
+            const inicio = performance.now();
+
+            const resultado = quicksort(vetor);
+
+            vetor = resultado.vetor;
+
+            const fim = performance.now();
+
+            renderizarCartas();
+
+            document.getElementById("tempo").innerText =
+                `${(fim - inicio).toFixed(3)} ms`;
+
+            document.getElementById("comparacoes").innerText =
+                resultado.comparacoes;
+
+            document.getElementById("trocas").innerText =
+                resultado.trocas;
+
+            break;
+        }
     }
 }
