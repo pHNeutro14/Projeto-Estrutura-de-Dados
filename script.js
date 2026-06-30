@@ -2,6 +2,7 @@ import { bubblesort } from "./algoritmos/bubbleSort.js";
 import { selectionsort } from "./algoritmos/selectionSort.js";
 import { insertionsort } from "./algoritmos/insertionSort.js";
 import { quicksort } from "./algoritmos/quickSort.js";
+import { shellsort } from "./algoritmos/shellSort.js";
 
 let vetor = [];
 
@@ -125,6 +126,30 @@ function ordenar() {
             const inicio = performance.now();
 
             const resultado = quicksort(vetor);
+
+            vetor = resultado.vetor;
+
+            const fim = performance.now();
+
+            renderizarCartas();
+
+            document.getElementById("tempo").innerText =
+                `${(fim - inicio).toFixed(3)} ms`;
+
+            document.getElementById("comparacoes").innerText =
+                resultado.comparacoes;
+
+            document.getElementById("trocas").innerText =
+                resultado.trocas;
+
+            break;
+        }
+
+        case "shell": {
+
+            const inicio = performance.now();
+
+            const resultado = shellsort(vetor);
 
             vetor = resultado.vetor;
 
