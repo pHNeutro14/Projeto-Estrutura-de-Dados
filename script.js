@@ -1,4 +1,5 @@
 import { bubblesort } from "./algoritmos/bubbleSort.js";
+import { selectionsort } from "./algoritmos/selectionSort.js";
 
 let vetor = [];
 
@@ -45,17 +46,52 @@ function ordenar() {
     const algoritmo = document.getElementById("algoritmo").value;
 
     switch (algoritmo) {
-        case "bubble":
+        case "bubble": {
+
+            const inicio = performance.now();
 
             const resultado = bubblesort(vetor);
 
             vetor = resultado.vetor;
 
+            const fim = performance.now();
+
             renderizarCartas();
 
-            console.log(resultado.comparacoes);
-            console.log(resultado.trocas);
 
-            break;
+            document.getElementById("tempo").innerText =
+                `${(fim - inicio).toFixed(3)} ms`;
+
+            document.getElementById("comparacoes").innerText =
+                resultado.comparacoes;
+
+            document.getElementById("trocas").innerText =
+                resultado.trocas;
+
+            break};
+
+        case "selection": {
+
+            const inicio = performance.now();
+
+            const resultado = selectionsort(vetor);
+            
+            vetor = resultado.vetor;
+
+            const fim = performance.now();
+
+
+            renderizarCartas();
+
+            document.getElementById("tempo").innerText =
+                `${(fim - inicio).toFixed(3)} ms`;
+
+            document.getElementById("comparacoes").innerText =
+                resultado.comparacoes;
+
+            document.getElementById("trocas").innerText =
+                resultado.trocas;
+
+            break;}
     }
 }
