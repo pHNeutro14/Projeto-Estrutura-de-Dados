@@ -1,4 +1,4 @@
-import { bubblesort } from "./algoritmos/bubbleSort.js";
+import { bubblesort } from "./algoritmos/bubblesort.js";
 import { selectionsort } from "./algoritmos/selectionSort.js";
 import { insertionsort } from "./algoritmos/insertionSort.js";
 import { quicksort } from "./algoritmos/quickSort.js";
@@ -158,7 +158,7 @@ function ordenar() {
             renderizarCartas();
 
             document.getElementById("tempo").innerText =
-                `${(fim - inicio).toFixed(3)} ms`;
+                `${(fim - inicio).toFixed(4)} ms`;
 
             document.getElementById("comparacoes").innerText =
                 resultado.comparacoes;
