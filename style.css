@@ -25,6 +25,10 @@ body {
     background: white;
 
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+
+    transition:
+        transform .35s ease,
+        background-color .2s;
 }

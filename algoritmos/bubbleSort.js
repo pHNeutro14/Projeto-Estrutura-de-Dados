@@ -12,8 +12,7 @@ export function bubblesort(vetor) {
 
             if (vetor[j] > vetor[j + 1]) {
 
-                [vetor[j], vetor[j + 1]] =
-                [vetor[j + 1], vetor[j]];
+                [vetor[j], vetor[j + 1]] = [vetor[j + 1], vetor[j]];
 
                 trocas++;
 
@@ -21,7 +20,6 @@ export function bubblesort(vetor) {
                     i: j,
                     j: j + 1
                 });
-
             }
         }
     }

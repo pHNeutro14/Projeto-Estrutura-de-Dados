@@ -15,7 +15,7 @@ document.getElementById("btnOrdenar").addEventListener("click", ordenar);
 function gerarCartas() {
     const tamanho = Number(document.getElementById("tamanho").value);
 
-    if (tamanho < 1 || tamanho > 20) {
+    if (tamanho < 1 || tamanho > 80) {
         alert("Escolha um valor entre 1 e 20");
         return;
     }
@@ -68,33 +68,84 @@ function renderizarCartas() {
 
 async function animarTroca(i, j) {
 
+
     // Destaca as cartas que serão trocadas
-    cartas[i].style.backgroundColor = "#ee12a1ff";
-    cartas[j].style.backgroundColor = "#00eb5aff";
+    cartas[i].style.backgroundColor = "#ceec58ff";
+    cartas[j].style.backgroundColor = "#ceec58ff";
 
-    // Espera meio segundo
-    await new Promise(resolve => setTimeout(resolve, 500));
+    const mesa = document.getElementById("mesa");
 
-    // Troca os valores no vetor
-    [vetor[i], vetor[j]] = [vetor[j], vetor[i]];
+    // Guarda a posição de cada carta
+    const posicoesAntes = new Map();
 
-    // Atualiza apenas os números das cartas
-    renderizarCartas();
+    cartas.forEach(carta => {
+        posicoesAntes.set(carta, carta.getBoundingClientRect());
+    });
 
-    // Remove o destaque
+    // Troca as cartas no array
+    [cartas[i], cartas[j]] = [cartas[j], cartas[i]];
+
+    // Reorganiza o DOM
+    cartas.forEach(carta => {
+        mesa.appendChild(carta);
+    });
+
+    // Guarda a nova posição de cada carta
+    const posicoesDepois = new Map();
+
+    cartas.forEach(carta => {
+        posicoesDepois.set(carta, carta.getBoundingClientRect());
+    });
+
+    // Coloca cada carta de volta visualmente na posição antiga
+    cartas.forEach(carta => {
+
+        const antes = posicoesAntes.get(carta);
+        const depois = posicoesDepois.get(carta);
+
+        const dx = antes.left - depois.left;
+        const dy = antes.top - depois.top;
+
+        carta.style.transition = "none";
+        carta.style.transform = `translate(${dx}px, ${dy}px)`;
+
+    });
+
+    // Força o navegador a aplicar o transform
+    await new Promise(resolve => {
+        requestAnimationFrame(() => {
+            requestAnimationFrame(resolve);
+        });
+    });
+
+    // Faz a animação
+    cartas.forEach(carta => {
+
+        carta.style.transition = "transform 350ms ease";
+        carta.style.transform = "translate(0, 0)";
+
+    });
+
+    // Espera terminar
+    await new Promise(resolve => setTimeout(resolve, 350));
+
+
     cartas[i].style.backgroundColor = "white";
     cartas[j].style.backgroundColor = "white";
+    // Atualiza o vetor
+    [vetor[i], vetor[j]] = [vetor[j], vetor[i]];
 }
+
+
 
 async function animarPassos(passos) {
 
     for (const passo of passos) {
-
         await animarTroca(passo.i, passo.j);
 
     }
-
 }
+
 
 document.getElementById("tamanho").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
@@ -139,9 +190,9 @@ async function ordenar() {
 
             const resultado = selectionsort([...vetor]);
 
-            vetor = resultado.vetor;
+            await animarPassos(resultado.passos);
 
-            const fim = performance.now();
+            vetor = resultado.vetor;
 
             renderizarCartas();
 
