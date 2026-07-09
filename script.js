@@ -3,6 +3,8 @@ import { selectionsort } from "./algoritmos/selectionSort.js";
 import { insertionsort } from "./algoritmos/insertionSort.js";
 import { quicksort } from "./algoritmos/quickSort.js";
 import { shellsort } from "./algoritmos/shellSort.js";
+import { heapsort } from "./algoritmos/heapSort.js";
+import { mergesort } from "./algoritmos/mergeSort.js";
 
 let vetor = [];
 
@@ -158,7 +160,53 @@ function ordenar() {
             renderizarCartas();
 
             document.getElementById("tempo").innerText =
-                `${(fim - inicio).toFixed(4)} ms`;
+                `${(fim - inicio).toFixed(3)} ms`;
+
+            document.getElementById("comparacoes").innerText =
+                resultado.comparacoes;
+
+            document.getElementById("trocas").innerText =
+                resultado.trocas;
+
+            break;
+        }
+
+        case "heap": {
+            const inicio = performance.now();
+
+            const resultado = heapsort(vetor);
+
+            vetor = resultado.vetor;
+
+            const fim = performance.now();
+
+            renderizarCartas();
+
+            document.getElementById("tempo").innerText =
+                `${(fim - inicio).toFixed(3)} ms`;
+
+            document.getElementById("comparacoes").innerText =
+                resultado.comparacoes;
+
+            document.getElementById("trocas").innerText =
+                resultado.trocas;
+
+            break;
+        }
+
+        case "merge": {
+            const inicio = performance.now();
+
+            const resultado = mergesort(vetor);
+
+            vetor = resultado.vetor;
+
+            const fim = performance.now();
+
+            renderizarCartas();
+
+            document.getElementById("tempo").innerText =
+                `${(fim - inicio).toFixed(3)} ms`;
 
             document.getElementById("comparacoes").innerText =
                 resultado.comparacoes;
