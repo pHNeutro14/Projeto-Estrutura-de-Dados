@@ -8,6 +8,12 @@ import { mergesort } from "./algoritmos/mergeSort.js";
 
 let vetor = [];
 let cartas = [];
+const naipes = [
+    "♠",
+    "♥",
+    "♦",
+    "♣"
+];
 
 document.getElementById("btnGerar").addEventListener("click", gerarCartas);
 document.getElementById("btnOrdenar").addEventListener("click", ordenar);
@@ -46,7 +52,13 @@ function renderizarCartas() {
 
             carta.className = "carta";
 
-            carta.textContent = vetor[i];
+            const naipe = naipes[Math.floor(Math.random() * naipes.length)];
+
+            carta.innerHTML = `
+                <span class="naipe topo">${naipe}</span>
+                <span class="valor">${vetor[i]}</span>
+                <span class="naipe baixo">${naipe}</span>
+            `;
 
             carta.dataset.index = i;
 
@@ -61,7 +73,7 @@ function renderizarCartas() {
     // Atualiza apenas os números
     for (let i = 0; i < vetor.length; i++) {
 
-        cartas[i].textContent = vetor[i];
+        cartas[i].querySelector(".valor").textContent = vetor[i];
 
     }
 }

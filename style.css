@@ -15,20 +15,38 @@ body {
 }
 
 .carta {
+    position: relative;
+
     width: 60px;
     height: 90px;
-    margin: 5px;
-
-    border: 2px solid black;
-    border-radius: 8px;
-
-    background: white;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    transition:
-        transform .35s ease,
-        background-color .2s;
+    background: white;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+.valor {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.naipe {
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.topo {
+    top: 5px;
+    left: 6px;
+}
+
+.baixo {
+    bottom: 5px;
+    right: 6px;
+    transform: rotate(180deg);
 }
