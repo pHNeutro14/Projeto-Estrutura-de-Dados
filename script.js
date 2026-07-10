@@ -1,4 +1,4 @@
-import { bubblesort } from "./algoritmos/bubblesort.js";
+import { bubblesort } from "./algoritmos/bubbleSort.js";
 import { selectionsort } from "./algoritmos/selectionSort.js";
 import { insertionsort } from "./algoritmos/insertionSort.js";
 import { quicksort } from "./algoritmos/quickSort.js";
