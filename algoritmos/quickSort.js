@@ -2,6 +2,7 @@ export function quicksort(vetor) {
 
     let comparacoes = 0;
     let trocas = 0;
+    let passos = [];
 
     function particionar(vetor, inicio, fim) {
 
@@ -16,13 +17,31 @@ export function quicksort(vetor) {
 
                 i++;
 
-                [vetor[i], vetor[j]] = [vetor[j], vetor[i]];
-                trocas++;
+                if (i !== j) {
+
+                    [vetor[i], vetor[j]] = [vetor[j], vetor[i]];
+
+                    trocas++;
+
+                    passos.push({
+                        i: i,
+                        j: j
+                    });
+                }
             }
         }
 
-        [vetor[i + 1], vetor[fim]] = [vetor[fim], vetor[i + 1]];
-        trocas++;
+        if (i + 1 !== fim) {
+
+            [vetor[i + 1], vetor[fim]] = [vetor[fim], vetor[i + 1]];
+
+            trocas++;
+
+            passos.push({
+                i: i + 1,
+                j: fim
+            });
+        }
 
         return i + 1;
     }
@@ -43,6 +62,7 @@ export function quicksort(vetor) {
     return {
         vetor,
         comparacoes,
-        trocas
+        trocas,
+        passos
     };
 }

@@ -2,6 +2,7 @@ export function shellsort(vetor) {
 
     let comparacoes = 0;
     let trocas = 0;
+    let passos = [];
 
     const n = vetor.length;
 
@@ -9,29 +10,36 @@ export function shellsort(vetor) {
 
         for (let i = gap; i < n; i++) {
 
-            let temp = vetor[i];
             let j = i;
 
             while (j >= gap) {
 
                 comparacoes++;
 
-                if (vetor[j - gap] > temp) {
-                    vetor[j] = vetor[j - gap];
+                if (vetor[j - gap] > vetor[j]) {
+
+                    [vetor[j - gap], vetor[j]] = [vetor[j], vetor[j - gap]];
+
+                    passos.push({
+                        i: j - gap,
+                        j: j
+                    });
+
                     trocas++;
+
                     j -= gap;
+
                 } else {
                     break;
                 }
             }
-
-            vetor[j] = temp;
         }
     }
 
     return {
         vetor,
         comparacoes,
-        trocas
+        trocas,
+        passos
     };
 }

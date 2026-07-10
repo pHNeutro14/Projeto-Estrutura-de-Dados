@@ -2,33 +2,40 @@ export function insertionsort(vetor) {
 
     let comparacoes = 0;
     let trocas = 0;
+    let passos = [];
 
     const n = vetor.length;
 
     for (let i = 1; i < n; i++) {
 
-        let chave = vetor[i];
-        let j = i - 1;
+        let j = i;
 
-        while (j >= 0) {
+        while (j > 0) {
 
             comparacoes++;
 
-            if (vetor[j] > chave) {
-                vetor[j + 1] = vetor[j];
+            if (vetor[j - 1] > vetor[j]) {
+
+                [vetor[j - 1], vetor[j]] = [vetor[j], vetor[j - 1]];
+
+                passos.push({
+                    i: j - 1,
+                    j: j
+                });
+
                 trocas++;
                 j--;
+
             } else {
                 break;
             }
         }
-
-        vetor[j + 1] = chave;
     }
 
     return {
         vetor,
         comparacoes,
-        trocas
+        trocas,
+        passos
     };
 }

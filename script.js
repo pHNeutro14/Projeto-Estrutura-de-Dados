@@ -214,6 +214,8 @@ async function ordenar() {
 
             const resultado = insertionsort([...vetor]);
 
+            await animarPassos(resultado.passos);
+
             vetor = resultado.vetor;
 
             const fim = performance.now();
@@ -237,6 +239,8 @@ async function ordenar() {
             const inicio = performance.now();
 
             const resultado = quicksort([...vetor]);
+
+            await animarPassos(resultado.passos);
 
             vetor = resultado.vetor;
 
@@ -262,6 +266,8 @@ async function ordenar() {
 
             const resultado = shellsort([...vetor]);
 
+            await animarPassos(resultado.passos);
+
             vetor = resultado.vetor;
 
             const fim = performance.now();
@@ -281,9 +287,12 @@ async function ordenar() {
         }
 
         case "heap": {
+
             const inicio = performance.now();
 
             const resultado = heapsort([...vetor]);
+
+            await animarPassos(resultado.passos);
 
             vetor = resultado.vetor;
 
