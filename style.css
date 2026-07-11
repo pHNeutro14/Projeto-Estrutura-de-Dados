@@ -41,13 +41,13 @@ body {
 }
 
 .topo {
-    top: 5px;
-    left: 6px;
+    top: -2px;
+    left: 2px;
 }
 
 .baixo {
-    bottom: 5px;
-    right: 6px;
+    bottom: -2px;
+    right: 2px;
     transform: rotate(180deg);
 }
 
