@@ -18,18 +18,67 @@ const naipes = [
 document.getElementById("btnGerar").addEventListener("click", gerarCartas);
 document.getElementById("btnOrdenar").addEventListener("click", ordenar);
 
-function gerarCartas() {
-    const tamanho = Number(document.getElementById("tamanho").value);
+function gerarVetorAleatorio(tamanho) {
+    let vetor = [];
 
-    if (tamanho < 1 || tamanho > 80) {
+    for (let i = 0; i < tamanho; i++) {
+        vetor.push(Math.floor(Math.random() * 100));
+    }
+
+    return vetor;
+}
+
+function gerarVetorOrdenado(tamanho) {
+    return gerarVetorAleatorio(tamanho).sort((a, b) => a - b);
+}
+
+function gerarVetorInvertido(tamanho) {
+    return gerarVetorOrdenado(tamanho).reverse();
+}
+
+function gerarVetorQuaseOrdenado(tamanho) {
+
+    let vetor = gerarVetorOrdenado(tamanho);
+
+    const trocas = Math.max(2, Math.floor(tamanho * 0.25));
+
+    for (let i = 0; i < trocas; i++) {
+
+        const a = Math.floor(Math.random() * tamanho);
+        const b = Math.floor(Math.random() * tamanho);
+
+        [vetor[a], vetor[b]] = [vetor[b], vetor[a]];
+    }
+
+    return vetor;
+}
+
+function gerarCartas() {
+
+    const tamanho = Number(document.getElementById("tamanho").value);
+    const tipo = document.getElementById("tipoVetor").value;
+
+    if (tamanho < 1 || tamanho > 20) {
         alert("Escolha um valor entre 1 e 20");
         return;
     }
 
-    vetor = [];
+    switch (tipo) {
 
-    for (let i = 0; i < tamanho; i++) {
-        vetor.push(Math.floor(Math.random() * 100));
+        case "ordenado":
+            vetor = gerarVetorOrdenado(tamanho);
+            break;
+
+        case "invertido":
+            vetor = gerarVetorInvertido(tamanho);
+            break;
+
+        case "quase":
+            vetor = gerarVetorQuaseOrdenado(tamanho);
+            break;
+
+        default:
+            vetor = gerarVetorAleatorio(tamanho);
     }
 
     cartas = [];
@@ -54,10 +103,12 @@ function renderizarCartas() {
 
             const naipe = naipes[Math.floor(Math.random() * naipes.length)];
 
+            const classeCor = (naipe === "♥" || naipe === "♦") ? "vermelha" : "";
+
             carta.innerHTML = `
-                <span class="naipe topo">${naipe}</span>
-                <span class="valor">${vetor[i]}</span>
-                <span class="naipe baixo">${naipe}</span>
+                <span class="naipe topo ${classeCor}">${naipe}</span>
+                <span class="valor ${classeCor}">${vetor[i]}</span>
+                <span class="naipe baixo ${classeCor}">${naipe}</span>
             `;
 
             carta.dataset.index = i;
@@ -205,6 +256,8 @@ async function ordenar() {
             await animarPassos(resultado.passos);
 
             vetor = resultado.vetor;
+
+            const fim = performance.now();
 
             renderizarCartas();
 

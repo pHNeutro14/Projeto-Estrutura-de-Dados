@@ -36,7 +36,7 @@ body {
 
 .naipe {
     position: absolute;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -49,4 +49,8 @@ body {
     bottom: 5px;
     right: 6px;
     transform: rotate(180deg);
+}
+
+.vermelha {
+    color: #d62828;
 }

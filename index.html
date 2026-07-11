@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ordenação de Cartas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <input id="tamanho" type="number" min="1" max="20" value="10">
-<button id="btnGerar">Gerar cartas aleatórias</button>
+
+<select id="tipoVetor">
+    <option value="aleatorio">Aleatório</option>
+    <option value="ordenado">Ordenado</option>
+    <option value="invertido">Invertido</option>
+    <option value="quase">Quase Ordenado</option>
+</select>
+
+<button id="btnGerar">Gerar Cartas</button>
 
 <select id="algoritmo">
     <option value="bubble">Bubble Sort</option>
@@ -28,7 +37,9 @@
     <p><strong>Trocas:</strong> <span id="trocas">-</span></p>
 </div>
 
-    <div id="mesa"></div>
-    <script type="module" src="script.js"></script>    
+<div id="mesa"></div>
+
+<script type="module" src="script.js"></script>
+
 </body>
 </html>
